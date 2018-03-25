@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
@@ -9,6 +9,9 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 export class PanelVideoComponent implements OnInit, OnDestroy 
 {
+  @Output() onSuccess = new EventEmitter<number>();
+  @Output() onError = new EventEmitter<void>();
+
   private fuenteSeleccionada: any = {};
   private capturarNuevoCuadro = new BehaviorSubject<string>("");
 
@@ -21,7 +24,7 @@ export class PanelVideoComponent implements OnInit, OnDestroy
   {
     console.log("panel-video set fuente", value);
     this.fuenteSeleccionada = value;
-    if (value.capturar) 
+    if (value && value.capturar) 
     {
       this.solicitarSiguienteCuadro();
     }
@@ -46,16 +49,7 @@ export class PanelVideoComponent implements OnInit, OnDestroy
 
   onImageLoad(): void 
   {
-    console.log("cargada");
-    if (!this.fuenteSeleccionada.capturar) return;
-
-    let elapsed = Date.now() - this.ultimaSolicitudCaptura;
-    let wait = this.intervalo - elapsed;
-    console.log("vamos a esperar", wait);
-    setTimeout(() => 
-    {
-      this.solicitarSiguienteCuadro();
-    }, wait > 0 ? wait : 0)
+    this.onImage(true);
   }
 
   solicitarSiguienteCuadro(): void 
@@ -67,7 +61,31 @@ export class PanelVideoComponent implements OnInit, OnDestroy
 
   onImageError(): void 
   {
-    console.log("onImageError");
+    this.onImage(false);
   }
 
+  onImage(success:boolean):void
+  {
+    console.log( success? "onImageLoad": "onImageError" );
+    
+    if (!this.fuenteSeleccionada.capturar) return;
+
+    let elapsed = Date.now() - this.ultimaSolicitudCaptura;
+    let wait = this.intervalo - elapsed;
+    console.log("vamos a esperar", wait);
+
+    if(success)
+    { 
+      this.onSuccess.emit(elapsed);
+    }
+    else
+    {
+      this.onError.emit();
+    }
+
+    setTimeout(() => 
+    {
+      this.solicitarSiguienteCuadro();
+    }, wait > 0 ? wait : 0)
+  }
 }
