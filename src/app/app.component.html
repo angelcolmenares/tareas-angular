@@ -7,7 +7,7 @@
             </div>
             
             <div class="ui-toolbar-group-right">
-                <div [hidden]="!fuenteSeleccionada" class='badge badge-info'>{{fps?fps:''}}</div>
+                <div [hidden]="!fuenteSeleccionada" [ngClass]='fpsDivClass'>{{fps?fps:''}}</div>
             </div> 
             <div class="ui-toolbar-group-right">
                 <div [hidden]="!fuenteSeleccionada" class='badge'>{{(1000/2000).toFixed(2)}}</div>

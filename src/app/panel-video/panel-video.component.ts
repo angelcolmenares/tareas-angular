@@ -15,7 +15,7 @@ export class PanelVideoComponent implements OnInit, OnDestroy
   private fuenteSeleccionada: any = {};
   private capturarNuevoCuadro = new BehaviorSubject<string>("");
 
-  private url: string = "";
+  url: string = "";
   private ultimaSolicitudCaptura: number;
 
   private intervalo: number = 2000;
