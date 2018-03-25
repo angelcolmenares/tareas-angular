@@ -61,6 +61,7 @@ export class PanelVideoComponent implements OnInit, OnDestroy
 
   onImageError(): void 
   {
+    if(!this.url) return;
     this.onImage(false);
   }
 

@@ -21,3 +21,34 @@ h1 {
   * {
     font-family: Arial, Helvetica, sans-serif;
   }
+
+
+  .badge {
+    width: 40px;
+    text-align: left;
+    color: #ffffff;
+    background-color: #737373;
+    padding: 0 8px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;    
+}
+
+.badge.badge-info {
+  background: #007cbb;
+  color: #fff;
+}
+
+.badge.badge-success {
+  background: #318700;
+  color: #fff;
+}
+
+.badge.badge-warning {
+  background: #ffdc0b;
+  color: #000;
+}
+.badge.badge-danger {
+  background: #c92100;
+  color: #fff;
+}

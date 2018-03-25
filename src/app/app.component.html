@@ -2,7 +2,12 @@
     <div class="ui-g-12 ui-md-2">Menu</div>
     <div class="ui-g-12 ui-md-10 ui-g-nopad">
         <div class="ui-g-12">
-            <app-fuente-captura-seleccion (iniciarCaptura)="handleIniciarCaptura($event)" ></app-fuente-captura-seleccion>
+            <div class="ui-toolbar-group-left">
+              <app-fuente-captura-seleccion (iniciarCaptura)="handleIniciarCaptura($event)" ></app-fuente-captura-seleccion>
+            </div>
+            <div class="ui-toolbar-group-right">
+                 <span class='badge badge-info'>10</span>
+            </div> 
         </div>
         <div class="ui-g-12" >
             <app-panel-video [fuente]="fuenteSeleccionada" ></app-panel-video>
