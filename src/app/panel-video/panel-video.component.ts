@@ -6,81 +6,66 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
   templateUrl: './panel-video.component.html',
   styleUrls: ['./panel-video.component.css']
 })
-export class PanelVideoComponent implements OnInit, OnDestroy {
 
-  private fuenteSeleccionada:any= {};
-  private capturarNuevoCuadro =  new BehaviorSubject<string>(""); 
+export class PanelVideoComponent implements OnInit, OnDestroy 
+{
+  private fuenteSeleccionada: any = {};
+  private capturarNuevoCuadro = new BehaviorSubject<string>("");
 
-  private url :string ="";
-  private ultimaCaptura:number;
+  private url: string = "";
+  private ultimaSolicitudCaptura: number;
 
-  private intervalo :number =2000;
+  private intervalo: number = 2000;
 
-  @Input() set fuente(value:any)
+  @Input() set fuente(value: any) 
   {
-    console.log(value);
-    this.fuenteSeleccionada=value;
-    if ( value.capturar  )
-    {      
-      this.capturarNuevoCuadro.next( this.getRandomString());
+    console.log("panel-video set fuente", value);
+    this.fuenteSeleccionada = value;
+    if (value.capturar) 
+    {
+      this.solicitarSiguienteCuadro();
     }
-    
   }
 
-  get fuente():any{
-    return this.fuenteSeleccionada;
-  }
-
-  constructor() 
-  { 
-  }
+  constructor() {}
 
   ngOnInit() 
   {
-    this.capturarNuevoCuadro.subscribe((next:string)=>
-    {
+    this.capturarNuevoCuadro.subscribe((next: string) => {
       console.log("next", next);
-      if( next=='') return;
-      this.ultimaCaptura=  Date.now();
-      this.url= this.fuenteSeleccionada.url+ '?'+ next;
+      if (next == '') return;
+      this.ultimaSolicitudCaptura = Date.now();
+      this.url = this.fuenteSeleccionada.url + '?' + next;
     });
   }
 
-  ngOnDestroy():void
+  ngOnDestroy(): void 
   {
     this.capturarNuevoCuadro.complete();
   }
 
-  onImageLoad():void
+  onImageLoad(): void 
   {
     console.log("cargada");
-    if(! this.fuenteSeleccionada.capturar) return;
+    if (!this.fuenteSeleccionada.capturar) return;
 
-    let now = Date.now();
-    let elapsed = Date.now() - this.ultimaCaptura;
+    let elapsed = Date.now() - this.ultimaSolicitudCaptura;
     let wait = this.intervalo - elapsed;
-    console.log("vamos a esperar",wait);
-    if( wait > 0)
+    console.log("vamos a esperar", wait);
+    setTimeout(() => 
     {
-      setTimeout( ()=>{
-        this.capturarNuevoCuadro.next(this.getRandomString());
-      }, wait )
-      
-    }
-    else
-    {
-      this.capturarNuevoCuadro.next(this.getRandomString());
-    }
-
+      this.solicitarSiguienteCuadro();
+    }, wait > 0 ? wait : 0)
   }
 
-  getRandomString():string
+  solicitarSiguienteCuadro(): void 
   {
-    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
-    .toString();
+    let next = Math.random().toString(36).substring(2, 15)
+      + Math.random().toString(36).substring(2, 15).toString();
+    this.capturarNuevoCuadro.next(next);
   }
 
-  onImageError():void
+  onImageError(): void 
   {
     console.log("onImageError");
   }
