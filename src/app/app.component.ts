@@ -6,5 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Tour of Heroes';
+  
+  fuenteSeleccionada:any={}
+
+  handleIniciarCaptura(value):void
+  {
+    console.log(value);
+    this.fuenteSeleccionada=value;
+  }
 }

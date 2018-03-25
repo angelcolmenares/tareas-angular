@@ -1,0 +1,7 @@
+<div class="ui-inputgroup">
+  <input type="text" pInputText placeholder="url cámara" [(ngModel)]="url">
+  <button pButton type="button" 
+    (click)='iniciarVisualizacion()' 
+    [label]="capturar?'Detener':'Iniciar'"
+    style="width:100px;"></button>
+</div>
