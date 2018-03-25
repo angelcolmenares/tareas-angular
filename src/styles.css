@@ -28,7 +28,7 @@ h1 {
     text-align: left;
     color: #ffffff;
     background-color: #737373;
-    padding: 0 8px;
+    padding: 1px 8px 1px 8px;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
     border-radius: 6px;    
