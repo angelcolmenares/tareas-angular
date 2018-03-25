@@ -1,0 +1,27 @@
+<div class="ui-g" panel>
+    <div class="ui-g-12 ui-md-2" panel >Menu</div>
+    <div class="ui-g-12 ui-md-10 ui-g-nopad" panel>
+        <div class="ui-g-12">
+            <div class="ui-toolbar-group-left">
+              <app-fuente-captura-seleccion (iniciarCaptura)="fuenteSeleccionada=$event"></app-fuente-captura-seleccion>
+            </div>
+            
+            <div class="ui-toolbar-group-right">
+                <div [hidden]="!fuenteSeleccionada" [ngClass]='fpsDivClass'>{{fps?fps:''}}</div>
+            </div> 
+            <div class="ui-toolbar-group-right">
+                <div [hidden]="!fuenteSeleccionada" class='badge'>{{(1000/2000).toFixed(2)}}</div>
+            </div> 
+        </div>
+        <div class="ui-g-12" >
+            <app-panel-video 
+              [fuente]="fuenteSeleccionada" 
+              (onSuccess)="handleImageSuccess($event)" 
+              (onError)="handleImageError()" >
+            </app-panel-video>
+        </div>
+    </div>
+    <div class="ui-g-12" panel >
+        Footer
+    </div>
+</div>
