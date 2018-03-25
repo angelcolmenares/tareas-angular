@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
   templateUrl: './panel-video.component.html',
   styleUrls: ['./panel-video.component.css']
 })
-export class PanelVideoComponent implements OnInit {
+export class PanelVideoComponent implements OnInit, OnDestroy {
 
   private fuenteSeleccionada:any= {};
   private capturarNuevoCuadro =  new BehaviorSubject<string>(""); 
@@ -44,6 +44,11 @@ export class PanelVideoComponent implements OnInit {
       this.ultimaCaptura=  Date.now();
       this.url= this.fuenteSeleccionada.url+ '?'+ next;
     });
+  }
+
+  ngOnDestroy():void
+  {
+    this.capturarNuevoCuadro.complete();
   }
 
   onImageLoad():void
