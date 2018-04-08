@@ -19,6 +19,8 @@ import { HeroService } from './hero.service';
 import { FuenteCapturaSeleccionComponent } from './fuente-captura-seleccion/fuente-captura-seleccion.component';
 import { PanelVideoComponent } from './panel-video/panel-video.component';
 
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +36,8 @@ import { PanelVideoComponent } from './panel-video/panel-video.component';
     FormsModule,
     BrowserAnimationsModule,
     InputTextModule,
-    ButtonModule
+    ButtonModule,
+    AngularFontAwesomeModule
   ],
   providers: [HeroService],
   bootstrap: [AppComponent]
