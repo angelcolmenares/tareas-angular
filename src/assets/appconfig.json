@@ -1,0 +1,6 @@
+{
+  "remoteServiceBaseUrl": "http://localhost:5000",
+  "appBaseUrl": "",
+  "hubServiceUrl": "http://localhost:5000",
+  "chatUrl":"/chat"
+}
